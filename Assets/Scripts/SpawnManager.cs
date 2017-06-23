@@ -16,15 +16,16 @@ public class SpawnManager : MonoBehaviour
 	{
 		if (instance == null)
 		{
+			instance = this;
 			spawnTime = 3f;
 			scorePerKill = 100;
 			SpawnPoint[] points = FindObjectsOfType<SpawnPoint> ();
 			foreach (var item in points)
 			{
 				spawnPointsList.Add (item);
-				SpawnOneEnemy (item);
+				SpawnEnemyAtSpawnPoint (spawnPointsList.IndexOf(item));
 			}
-			StartCoroutine("SpawnEnemyOverTime");
+			StartCoroutine("SpawnEnemiesOverTime");
 		}
 		else
 		{
@@ -39,33 +40,33 @@ public class SpawnManager : MonoBehaviour
 
 	public void IncrementEnemyScorePerKill(float increment)
 	{
-		scorePerKill *= increment;
+		scorePerKill = Mathf.FloorToInt(scorePerKill * increment);
 	}
 
-	public int GetSpawnTime()
+	public float GetSpawnTime()
 	{
 		return spawnTime;
 	}
 
-	public void AccelerateSpawnTime(float increment)
+	public void SetSpawnTime(float interval)
 	{
-		spawnTime /= (increment);
+		spawnTime = interval;
 	}
 
-	private void SpawnOneEnemy(SpawnPoint spawnPoint)
+	private void SpawnEnemyAtSpawnPoint(int spawnPointIndex)
 	{
-		Transform mySpawnTransform = spawnPointsList [spawnPoint].transform;
+		Transform mySpawnTransform = spawnPointsList[spawnPointIndex].transform;
 		Enemy newEnemy = GameObject.Instantiate (enemy, mySpawnTransform).GetComponent<Enemy> ();
 		newEnemy.transform.position = mySpawnTransform.position;
 	}
 
-	private IEnumerator SpawnEnemyOverTime()
+	private IEnumerator SpawnEnemiesOverTime()
 	{
 		int enemiesCount = 0;
 		while (enemiesCount <= maxAmountOfEnemies)
 		{
 			int rand = Random.Range (0, spawnPointsList.Count);
-			SpawnOneEnemy (rand);
+			SpawnEnemyAtSpawnPoint (rand);
 			enemiesCount++;
 			yield return new WaitForSeconds (spawnTime);
 		}

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 	private int Score;
 	private int timeScore;
 	public static GameManager instance = null;
+	public GameObject gamePrefab;
 
 	void Start ()
 	{
@@ -33,13 +34,14 @@ public class GameManager : MonoBehaviour {
 
 	public int GetFinalScore()
 	{
-		return Score * TimeManager.instance.GetTime ();
+		return Score * Mathf.RoundToInt(TimeManager.instance.GetTime ());
 	}
 
 	public void StartGame()
 	{
 		SceneManager.LoadScene ("Game");
 		Score = 0;
+		Game newGame = GameObject.Instantiate (gamePrefab).GetComponent<Game>();
 	}
 		
 	public void LoadLevel(string levelName)
@@ -68,7 +70,6 @@ public class GameManager : MonoBehaviour {
 		{
 			print ("Perdiste... D:");
 		}
-
-		this.LoadLevel ("MainMenu");
+		this.LoadLevel ("Game");
 	}
 }

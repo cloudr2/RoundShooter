@@ -16,6 +16,7 @@ public class TimeManager : MonoBehaviour
 			instance = this;
 			currentTime = 0f;
 			currentStage = stage.stage_1;
+			print ("======= " + currentStage + " ========");
 		} 
 		else
 		{
@@ -26,21 +27,48 @@ public class TimeManager : MonoBehaviour
 	void Update ()
 	{
 		currentTime += Time.deltaTime;
-		print (currentTime);
 
 		if (currentTime >= 25f && currentStage == stage.stage_1)
 		{
-			SpawnManager.instance.AccelerateSpawnTime (1.5f);
+			SpawnManager.instance.SetSpawnTime (2f);
 			SpawnManager.instance.IncrementEnemyScorePerKill (1.5f);
-			currentStage = stage.stage_2;
+			ChangeGameStage ();
+			print (currentTime);
 		}	
 		else if (currentTime >= 45f && currentStage == stage.stage_2)
 		{
-			SpawnManager.instance.AccelerateSpawnTime ();
+			SpawnManager.instance.SetSpawnTime (1f);
 			SpawnManager.instance.IncrementEnemyScorePerKill (2.5f);
-			currentStage = stage.stage_3;
+			ChangeGameStage ();
+			print (currentTime);
 		}
 	}
+
+	private void ChangeGameStage()
+	{
+		switch (currentStage)
+		{
+		case stage.stage_1:
+			{
+				currentStage = stage.stage_2;
+				break;
+			}
+
+		case stage.stage_2:
+			{
+				currentStage = stage.stage_3;
+				break;
+			}
+		default:
+			{
+				currentStage = stage.stage_1;
+				break;
+			}
+		}
+		print ("======= " + currentStage + " ========");
+	}
+
+
 
 	public float GetTime()
 	{

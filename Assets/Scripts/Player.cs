@@ -15,12 +15,14 @@ public class Player : MonoBehaviour
 
 	private Color32 myColor;
 	private float currentHealth;
+	private float lerpSpeed = 1f;
 	private Rigidbody2D rb;
 	private SpriteRenderer myRenderer;
 	private bool ableToFire = true;
 
 	void Start () 
 	{
+		myColor = colorFullHP;
 		currentHealth = Maxhealth;
 		rb = GetComponent<Rigidbody2D>();
 		myRenderer = GetComponentInChildren<SpriteRenderer> ();
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour
 
 	private void AnimateColors()
 	{
-		Color myAnimatedColor = Color.Lerp(Color.yellow, myColor, Mathf.PingPong(Time.time, 0.5f));
+		Color myAnimatedColor = Color.Lerp(Color.cyan, myColor, Mathf.PingPong(Time.time, lerpSpeed));
 		myRenderer.color = myAnimatedColor;
 	}
 
@@ -81,13 +83,15 @@ public class Player : MonoBehaviour
 			StopAllCoroutines ();
 			GameManager.instance.EndGame ("LOSE");
 		}
-		else if (currentHealth / Maxhealth < 0.35)
+		else if (currentHealth / Maxhealth <= 0.25f)
 		{
 			myColor = colorLowHP;
+			lerpSpeed = 0.25f;
 		}	
-		else if (currentHealth / Maxhealth < 0.5)
+		else if (currentHealth / Maxhealth <= 0.5f)
 		{
 			myColor = colorHalfHP;
+			lerpSpeed = 0.5f;
 		}
 	}
 }
