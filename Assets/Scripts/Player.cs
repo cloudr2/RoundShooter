@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
 	public Color32 colorHalfHP;
 	public Color32 colorLowHP;
 
+	public bool isMoving = false;
+
 	private Color32 myColor;
 	private float currentHealth;
 	private float lerpSpeed = 1f;
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
 		float horizontalMovement = Input.GetAxis ("Horizontal");
 		float VerticalMovement = Input.GetAxis ("Vertical");
 		rb.velocity = new Vector2(horizontalMovement,VerticalMovement) * speed;
+		isMoving = (rb.velocity != Vector2.zero);
 	}
 
 	private void RotateCannon()

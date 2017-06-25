@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
 
 	void Start()
 	{
-		print ("HOLA");
 		currentHealth = Maxhealth;
 		myColor = colorFullHP;
 		rb = GetComponent<Rigidbody2D> ();
@@ -54,7 +53,6 @@ public class Enemy : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D trigger)
 	{
-		print (trigger.gameObject.name);
 		if (trigger.gameObject.tag == "Player")
 		{
 			ableToFire = true;
@@ -63,7 +61,6 @@ public class Enemy : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D trigger)
 	{
-		print (trigger.gameObject.name);
 		if (trigger.gameObject.tag == "Player")
 		{
 			ableToFire = false;

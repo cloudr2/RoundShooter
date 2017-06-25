@@ -16,7 +16,6 @@ public class TimeManager : MonoBehaviour
 			instance = this;
 			currentTime = 0f;
 			currentStage = stage.stage_1;
-			print ("======= " + currentStage + " ========");
 		} 
 		else
 		{
@@ -33,14 +32,12 @@ public class TimeManager : MonoBehaviour
 			SpawnManager.instance.SetSpawnTime (2f);
 			SpawnManager.instance.IncrementEnemyScorePerKill (1.5f);
 			ChangeGameStage ();
-			print (currentTime);
 		}	
 		else if (currentTime >= 45f && currentStage == stage.stage_2)
 		{
 			SpawnManager.instance.SetSpawnTime (1f);
 			SpawnManager.instance.IncrementEnemyScorePerKill (2.5f);
 			ChangeGameStage ();
-			print (currentTime);
 		}
 	}
 
@@ -65,10 +62,7 @@ public class TimeManager : MonoBehaviour
 				break;
 			}
 		}
-		print ("======= " + currentStage + " ========");
 	}
-
-
 
 	public float GetTime()
 	{

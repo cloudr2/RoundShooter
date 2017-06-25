@@ -3,13 +3,10 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour {
 
-	// Use this for initialization
+	private SpriteRenderer myRenderer;
+
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		myRenderer = GetComponent<SpriteRenderer> ();
+		myRenderer.color = Color.clear;
 	}
 }

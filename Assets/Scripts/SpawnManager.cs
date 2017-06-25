@@ -65,10 +65,10 @@ public class SpawnManager : MonoBehaviour
 		int enemiesCount = 0;
 		while (enemiesCount <= maxAmountOfEnemies)
 		{
+			yield return new WaitForSeconds (spawnTime);
 			int rand = Random.Range (0, spawnPointsList.Count);
 			SpawnEnemyAtSpawnPoint (rand);
 			enemiesCount++;
-			yield return new WaitForSeconds (spawnTime);
 		}
 	}
 }

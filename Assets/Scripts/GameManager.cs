@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -7,7 +8,6 @@ public class GameManager : MonoBehaviour {
 	private int Score;
 	private int timeScore;
 	public static GameManager instance = null;
-	public GameObject gamePrefab;
 
 	void Start ()
 	{
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
 	public void AddScore(int score)
 	{
 		Score += score;
+		Game.instance.scoreLabel.text = "Score: " + GetScore ().ToString();
 	}
 
 	public int GetScore()
@@ -37,11 +38,16 @@ public class GameManager : MonoBehaviour {
 		return Score * Mathf.RoundToInt(TimeManager.instance.GetTime ());
 	}
 
+	public int GetHighScore()
+	{
+		return PlayerPrefs.GetInt ("HighScore");
+	}
+
 	public void StartGame()
 	{
-		SceneManager.LoadScene ("Game");
 		Score = 0;
-		Game newGame = GameObject.Instantiate (gamePrefab).GetComponent<Game>();
+		SceneManager.LoadScene ("Game");
+		Time.timeScale = 1f;
 	}
 		
 	public void LoadLevel(string levelName)
@@ -54,22 +60,18 @@ public class GameManager : MonoBehaviour {
 		Enemy[] enemies = FindObjectsOfType<Enemy>();
 		if (enemies.Length <= 0)
 		{
-			this.EndGame ("WIN");
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			EndGame ("WIN");
 		}
 	}
 
 	public void EndGame(string gameResult)
 	{
+		Time.timeScale = 0f;
+		Game.instance.ShowResult (gameResult);
 		if (gameResult == "WIN") 
 		{
-			print ("GANASTE! :)");
 			PlayerPrefs.SetInt ("HighScore", GetFinalScore ());
+			Game.instance.scoreLabel.text = "Score: " + GetFinalScore ().ToString();
 		}
-		else if (gameResult == "LOSE")
-		{
-			print ("Perdiste... D:");
-		}
-		this.LoadLevel ("Game");
 	}
 }
