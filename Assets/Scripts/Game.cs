@@ -19,7 +19,6 @@ public class Game : MonoBehaviour
 		{
 			instance = this;
 			highscoreLabel.text = "HighScore: " + GameManager.instance.GetHighScore().ToString();
-			print (GameManager.instance.GetHighScore ().ToString ());
 			winImage.gameObject.SetActive (false);
 			loseImage.gameObject.SetActive (false);
 			restartLabel.gameObject.SetActive (false);
