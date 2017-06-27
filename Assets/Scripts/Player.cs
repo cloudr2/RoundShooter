@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour 
 {
-	public float Maxhealth;
+	public int Maxhealth;
+	public int currentHealth;
 	public float speed;
 	public float fireRate;
 	public GameObject bulletPrefab;
@@ -16,7 +17,6 @@ public class Player : MonoBehaviour
 	public bool isMoving = false;
 
 	private Color32 myColor;
-	private float currentHealth;
 	private float lerpSpeed = 1f;
 	private Rigidbody2D rb;
 	private SpriteRenderer myRenderer;

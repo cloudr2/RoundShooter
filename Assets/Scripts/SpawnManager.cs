@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
 	public GameObject enemy;
 	public int maxAmountOfEnemies;
 
+	private int enemiesRemaining;
 	private float spawnTime;
 	private int scorePerKill;
 	private List<SpawnPoint> spawnPointsList = new List<SpawnPoint>();
@@ -17,6 +18,7 @@ public class SpawnManager : MonoBehaviour
 		if (instance == null)
 		{
 			instance = this;
+			enemiesRemaining = maxAmountOfEnemies;
 			spawnTime = 3f;
 			scorePerKill = 100;
 			SpawnPoint[] points = FindObjectsOfType<SpawnPoint> ();
@@ -70,5 +72,11 @@ public class SpawnManager : MonoBehaviour
 			SpawnEnemyAtSpawnPoint (rand);
 			enemiesCount++;
 		}
+	}
+
+	public void ReduceRemainingEnemies()
+	{
+		enemiesRemaining--;
+		Game.instance.EnemyCountLabel.text = "Quedan " +  enemiesRemaining.ToString() + " Enemigos";
 	}
 }

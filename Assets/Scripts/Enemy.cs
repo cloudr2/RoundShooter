@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-	public float Maxhealth;
-	public float speed;
+	public int Maxhealth;
+	public int currentHealth;
+	public float minSpeed;
+	public float maxSpeed;
 	public float fireRate;
 
 	public GameObject bulletPrefab;
+	public GameObject pointLabel;
 	public Transform bulletSpawner;
 
 	public Color colorFullHP;
@@ -15,8 +18,8 @@ public class Enemy : MonoBehaviour
 	public Color colorLowHP;
 
 	private Color myColor;
-	private float currentHealth;
 	private float lerpSpeed = 1f;
+	private float speed;
 	private bool ableToFire = false;
 	private bool destroyedByPlayer = false;
 	private Rigidbody2D rb;
@@ -27,7 +30,8 @@ public class Enemy : MonoBehaviour
 
 	void Start()
 	{
-		currentHealth = Maxhealth;
+		currentHealth = Random.Range(1,Maxhealth + 1);
+		speed = Random.Range (minSpeed, maxSpeed);
 		myColor = colorFullHP;
 		rb = GetComponent<Rigidbody2D> ();
 		player = FindObjectOfType<Player> ();
@@ -117,6 +121,8 @@ public class Enemy : MonoBehaviour
 		StopAllCoroutines ();
 		if (destroyedByPlayer) 
 		{
+			SpawnManager.instance.ReduceRemainingEnemies ();
+			GameObject.Instantiate (pointLabel,new Vector3 (this.transform.position.x, this.transform.position.y + 1, 0),Quaternion.Euler(Vector3.zero));
 			GameManager.instance.AddScore (SpawnManager.instance.GetEnemyScorePerKill());
 			GameManager.instance.CheckEnemiesAlive ();
 		}

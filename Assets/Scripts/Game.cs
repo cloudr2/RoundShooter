@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
 	public static Game instance = null;
 	public Text scoreLabel;
 	public Text highscoreLabel;
+	public Text EnemyCountLabel;
 	public Image winImage;
 	public Image loseImage;
 	public Image restartLabel;
@@ -17,7 +18,8 @@ public class Game : MonoBehaviour
 		if (instance == null) 
 		{
 			instance = this;
-			highscoreLabel.text = "HighScore: " + GameManager.instance.GetHighScore ().ToString();
+			highscoreLabel.text = "HighScore: " + GameManager.instance.GetHighScore().ToString();
+			print (GameManager.instance.GetHighScore ().ToString ());
 			winImage.gameObject.SetActive (false);
 			loseImage.gameObject.SetActive (false);
 			restartLabel.gameObject.SetActive (false);
