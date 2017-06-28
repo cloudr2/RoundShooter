@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 	public float speed;
 	public float fireRate;
 	public GameObject bulletPrefab;
+	public TextMesh healthLabel;
 	public Transform bulletSpawner;
 
 	public Color32 colorFullHP;
@@ -96,5 +97,19 @@ public class Player : MonoBehaviour
 			myColor = colorHalfHP;
 			lerpSpeed = 0.5f;
 		}
+
+		healthLabel.text = currentHealth.ToString ();
+		healthLabel.gameObject.SetActive (true);
+
+		if (IsInvoking("HideHPLabel"))
+		{
+			CancelInvoke ();
+		}
+		Invoke ("HideHPLabel", 2f);
+	}
+
+	private void HideHPLabel()
+	{
+		healthLabel.gameObject.SetActive (false);
 	}
 }

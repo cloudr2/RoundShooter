@@ -69,4 +69,3 @@ public class TimeManager : MonoBehaviour
 		return currentTime;
 	}
 }
-
