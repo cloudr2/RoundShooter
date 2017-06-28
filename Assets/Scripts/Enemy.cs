@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour
 		StopAllCoroutines ();
 		if (destroyedByPlayer) 
 		{
-			SpawnManager.instance.ReduceRemainingEnemies ();
+			SpawnManager.instance.UpdateRemainingEnemies ();
 			GameObject.Instantiate (pointLabel,new Vector3 (this.transform.position.x, this.transform.position.y + 1, 0),Quaternion.Euler(Vector3.zero));
 			GameManager.instance.AddScore (SpawnManager.instance.GetEnemyScorePerKill());
 			GameManager.instance.CheckEnemiesAlive ();
