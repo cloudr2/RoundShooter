@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
 			PlayerBullet newBullet = GameObject.Instantiate (bulletPrefab).GetComponent<PlayerBullet>();
 			newBullet.transform.right = this.transform.right;
 			newBullet.transform.position = bulletSpawner.position;
+			newBullet.transform.position += newBullet.transform.right * 1.5f;
 		}
 	}
 
