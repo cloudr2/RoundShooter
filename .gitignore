@@ -2,3 +2,4 @@
 /Library/*
 *.userprefs
 Assembly-CSharp.csproj
+*.app
