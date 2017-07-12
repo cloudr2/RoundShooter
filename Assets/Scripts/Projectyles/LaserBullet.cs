@@ -30,7 +30,7 @@ public class LaserBullet : Bullet
 	{
 		if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Player") 
 		{
-			col.gameObject.SendMessage ("ReceiveDamage", LaserDamage());
+			col.gameObject.SendMessage ("ReceiveDamage", 10);
 			DestroyBullet ();
 		}
 	}
@@ -45,11 +45,11 @@ public class LaserBullet : Bullet
 		newScalation = 0f;
 	}
 
-	private int LaserDamage()
-	{
-		print (damage * newScalation);
-		int myDamage = Mathf.FloorToInt(damage * newScalation);
-		print (myDamage);
-		return myDamage;
-	}
+//	private int LaserDamage()
+//	{
+//		print (damage * newScalation);
+//		int myDamage = Mathf.FloorToInt(damage * newScalation);
+//		print (myDamage);
+//		return myDamage;
+//	}
 }

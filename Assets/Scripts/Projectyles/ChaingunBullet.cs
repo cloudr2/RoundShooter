@@ -7,7 +7,7 @@ public class ChaingunBullet : Bullet
 	{
 		if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Player") 
 		{
-			col.gameObject.SendMessage ("ReceiveDamage", damage);
+			col.gameObject.SendMessage ("ReceiveDamage",bulletDamage);
 			DestroyBullet ();
 		}
 

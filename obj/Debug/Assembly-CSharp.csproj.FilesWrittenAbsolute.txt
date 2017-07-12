@@ -19,3 +19,5 @@
 /Users/apopovsky/Documents/Ale/AleRepo/RoundShooter/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/apopovsky/Documents/Ale/AleRepo/RoundShooter/obj/Debug/Assembly-CSharp.dll
 /Users/apopovsky/Documents/Ale/AleRepo/RoundShooter/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/apopovsky/Documents/Ale/AleRepo/RoundShooter/Temp/bin/Debug/UnityEngine.Advertisements.dll
+/Users/apopovsky/Documents/Ale/AleRepo/RoundShooter/Temp/bin/Debug/UnityEngine.Purchasing.dll

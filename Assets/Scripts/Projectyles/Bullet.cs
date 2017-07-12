@@ -7,12 +7,10 @@ public abstract class Bullet : MonoBehaviour
 	protected float speed = 10f;
 	[SerializeField]
 	protected float lifeSpan = 2f;
-	[SerializeField]
-	protected int damage = 10;
+
+	protected int bulletDamage;
 
 	protected Rigidbody2D rb;
-
-	public int Damage {get { return damage; } }
 
 	protected virtual void Start () 
 	{
@@ -35,4 +33,9 @@ public abstract class Bullet : MonoBehaviour
 	{
 		Destroy (this.gameObject, time);
 	}		
+
+	public void SetDamage(int damage)
+	{
+		bulletDamage = damage;
+	}
 }
