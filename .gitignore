@@ -1,5 +1,6 @@
 /Temp/*
 /Library/*
+*/obj/*
 *.userprefs
 Assembly-CSharp.csproj
 *.app

@@ -7,6 +7,7 @@ public class EnemyBullet : Bullet {
 	{
 		if (col.gameObject.tag == "Player") 
 		{
+			print (col.gameObject.name + " " + col.gameObject.tag);
 			col.gameObject.SendMessage ("ReceiveDamage", 1);
 			Destroy (this.gameObject);
 		}

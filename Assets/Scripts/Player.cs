@@ -6,10 +6,9 @@ public class Player : MonoBehaviour
 	public int Maxhealth;
 	public int currentHealth;
 	public float speed;
-	public float fireRate;
-	public GameObject bulletPrefab;
+
 	public TextMesh healthLabel;
-	public Transform bulletSpawner;
+	public Weapon myWeapon;
 
 	public Color32 colorFullHP;
 	public Color32 colorHalfHP;
@@ -21,7 +20,6 @@ public class Player : MonoBehaviour
 	private float lerpSpeed = 1f;
 	private Rigidbody2D rb;
 	private SpriteRenderer myRenderer;
-	private bool ableToFire = true;
 
 	void Start () 
 	{
@@ -57,21 +55,10 @@ public class Player : MonoBehaviour
 
 	private void Shoot()
 	{
-		if (Input.GetKey (KeyCode.LeftShift) && ableToFire)
+		if (Input.GetKey (KeyCode.LeftShift))
 		{
-			StartCoroutine (AbleToShoot());
-			PlayerBullet newBullet = GameObject.Instantiate (bulletPrefab).GetComponent<PlayerBullet>();
-			newBullet.transform.right = this.transform.right;
-			newBullet.transform.position = bulletSpawner.position;
-			newBullet.transform.position += newBullet.transform.right * 1.5f;
+			myWeapon.Shoot ();
 		}
-	}
-
-	private IEnumerator AbleToShoot()
-	{
-		ableToFire = false;
-		yield return new WaitForSeconds (fireRate);
-		ableToFire = true;
 	}
 
 	private void AnimateColors()
