@@ -3,13 +3,26 @@ using System.Collections;
 
 public class Laser : Weapon
 {
+	private EnemyLaser myOwner;
+
+	void Awake()
+	{
+		myOwner = GetComponentInParent<EnemyLaser>();;
+	}
+
 	public override void GenerateBullet ()
+	{
+		LaserBullet newBullet 		= Instantiate (bulletPrefab).GetComponent<LaserBullet>();
+		newBullet.gameObject.layer 	= this.myLayer;
+		newBullet.myOwner 			= myOwner;
+	}
+
+	public override void Shoot ()
 	{
 		if (isAbleToShoot)
 		{
-			LaserBullet newBullet = Instantiate (bulletPrefab).GetComponent<LaserBullet>();
-			newBullet.transform.right = this.transform.right;
-			newBullet.transform.position += newBullet.transform.right * 1.5f;
+			this.GenerateBullet ();
+			isAbleToShoot = false;
 		}
 	}
 }

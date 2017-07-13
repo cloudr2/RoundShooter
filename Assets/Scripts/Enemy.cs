@@ -1,45 +1,43 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CircleCollider2D))]
+
+public abstract class Enemy : MonoBehaviour
 {
 	[Header ("Stats")]
-	public int Maxhealth;
-	public int currentHealth;
-	public float speed;
 
-	[Header ("Colors")]
-	public Color colorFullHP;
-	public Color colorHalfHP;
-	public Color colorLowHP;
+	[SerializeField]
+	protected int Maxhealth;
+	[SerializeField]
+	protected int currentHealth;
+	[SerializeField]
+	protected float speed;
 
 	[Header ("Weapons")]
-	public Weapon myWeapon;
+
+	[SerializeField]
+	protected Weapon myWeapon;
 
 	[Header ("Misc")]
+	protected bool isDestroyedByPlayer = false;
+	public bool isTargetInRange = false;
+
+	protected Rigidbody2D rb;
+	protected Player player;
+
 	public GameObject pointLabel;
 
-	private float lerpSpeed = 1f;
-	private bool isDestroyedByPlayer = false;
-	private bool isTargetInRange = false;
-
-	private Color myColor;
-	private Rigidbody2D rb;
-	private Player player;
-	private SpriteRenderer myRenderer;
-
-	void Start()
+	protected virtual void Start()
 	{
-		currentHealth 	= Random.Range(1,Maxhealth + 1) * 10;
-		myColor 		= colorFullHP;
+		currentHealth 	= Maxhealth;
 		rb 				= GetComponent<Rigidbody2D> ();
 		player 			= FindObjectOfType<Player> ();
-		myRenderer 		= GetComponentInChildren<SpriteRenderer> ();
 	}
 
-	void FixedUpdate()
+	protected virtual void FixedUpdate()
 	{
-		AnimateColors ();
 		MoveTowardsPlayer ();
 
 		if (isTargetInRange)
@@ -48,7 +46,7 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	private void MoveTowardsPlayer ()
+	protected virtual void MoveTowardsPlayer ()
 	{
 		if (player)
 		{
@@ -58,29 +56,7 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter2D(Collider2D trigger)
-	{
-		if (trigger.gameObject.tag == "Player")
-		{
-			isTargetInRange = true;
-		}
-	}
-
-	private void OnTriggerExit2D(Collider2D trigger)
-	{
-		if (trigger.gameObject.tag == "Player")
-		{
-			isTargetInRange = false;
-		}
-	}
-
-	private void AnimateColors()
-	{
-		Color myAnimatedColor 	= Color.Lerp(Color.magenta, myColor, Mathf.PingPong(Time.time,lerpSpeed));
-		myRenderer.color 		= myAnimatedColor;
-	}
-
-	private void ReceiveDamage(int damage)
+	protected virtual void ReceiveDamage(int damage)
 	{
 		currentHealth -= damage;
 		if (currentHealth <= 0)
@@ -90,17 +66,20 @@ public class Enemy : MonoBehaviour
 		}
 		else if (currentHealth / Maxhealth <= 0.25f)
 		{
-			myColor 	= colorLowHP;
-			lerpSpeed 	= 0.25f;
+			//change color low health
 		}	
 		else if (currentHealth / Maxhealth <= 0.5f)
 		{
-			myColor 	= colorHalfHP;
-			lerpSpeed 	= 0.5f;
+			//change color critical health
 		}	
 	}
 
 	void OnDestroy()
+	{
+		DestroyEnemy ();
+	}
+
+	protected virtual void DestroyEnemy()
 	{
 		StopAllCoroutines ();
 		if (isDestroyedByPlayer) 

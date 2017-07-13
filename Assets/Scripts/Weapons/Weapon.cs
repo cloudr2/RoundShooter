@@ -10,7 +10,7 @@ public abstract class Weapon : MonoBehaviour
 	[SerializeField]
 	protected int damage = 10;
 
-	protected bool isAbleToShoot = true;
+	public bool isAbleToShoot = true;
 	protected int myLayer {get {return this.gameObject.layer;}}
 
 	public int Damage {get { return damage; } }
