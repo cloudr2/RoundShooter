@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: fc5186e0b5fe3d24a954084fbe9382d1
+timeCreated: 1501699272
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Swis721 Hv BT
+  fontNames:
+  - Swis721 Hv BT
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

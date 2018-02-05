@@ -5,14 +5,15 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 	public static SpawnManager instance = null;
-	public GameObject enemy;
+	public GameObject[] enemy;
 	public int maxAmountOfEnemies;
 
 	private int enemyCount;
 	private int enemiesRemaining;
 	private float spawnTime;
-	private int scorePerKill;
 	private List<SpawnPoint> spawnPointsList = new List<SpawnPoint>();
+	private bool changePhase2 = false;
+	private bool changePhase3 = false;
 
 	void Start()
 	{
@@ -21,11 +22,11 @@ public class SpawnManager : MonoBehaviour
 			instance = this;
 			enemyCount = 0;
 			spawnTime = 3f;
-			scorePerKill = 100;
-			enemiesRemaining = maxAmountOfEnemies;
+
 			SpawnPoint[] points = FindObjectsOfType<SpawnPoint> ();
 			foreach (var item in points)
 			{
+				if (enemyCount >= maxAmountOfEnemies) return;
 				spawnPointsList.Add (item);
 				SpawnEnemyAtSpawnPoint (spawnPointsList.IndexOf(item));
 			}
@@ -33,35 +34,24 @@ public class SpawnManager : MonoBehaviour
 		}
 		else
 		{
-			Destroy (this.gameObject);
+			Destroy (gameObject);
 		}
 	}
 
-	public int GetEnemyScorePerKill()
-	{
-		return scorePerKill;
+	void Update() {
+		if (Time.time >= 20f && !changePhase2) {
+			spawnTime = 2f;
+			changePhase2 = true;
+		}
+		else if (Time.time >= 45f && !changePhase3) {
+			spawnTime = 1f;
+			changePhase3 = true;
+		}
 	}
 
-	public void IncrementEnemyScorePerKill(float increment)
-	{
-		scorePerKill = Mathf.FloorToInt(scorePerKill * increment);
-	}
-
-	public float GetSpawnTime()
-	{
-		return spawnTime;
-	}
-
-	public void SetSpawnTime(float interval)
-	{
-		spawnTime = interval;
-	}
-
-	private void SpawnEnemyAtSpawnPoint(int spawnPointIndex)
-	{
+	public void SpawnEnemyAtSpawnPoint(int spawnPointIndex) {
 		Transform mySpawnTransform = spawnPointsList[spawnPointIndex].transform;
-		Enemy newEnemy = GameObject.Instantiate (enemy, mySpawnTransform).GetComponent<Enemy> ();
-		newEnemy.transform.position = mySpawnTransform.position;
+		Instantiate (enemy[Random.Range(0,enemy.Length)], mySpawnTransform);
 		enemyCount++;
 	}
 
@@ -70,14 +60,7 @@ public class SpawnManager : MonoBehaviour
 		while (enemyCount < maxAmountOfEnemies)
 		{
 			yield return new WaitForSeconds (spawnTime);
-			int rand = Random.Range (0, spawnPointsList.Count);
-			SpawnEnemyAtSpawnPoint (rand);
+			SpawnEnemyAtSpawnPoint (Random.Range (0, spawnPointsList.Count));
 		}
-	}
-
-	public void UpdateRemainingEnemies()
-	{
-		enemiesRemaining--;
-		Game.instance.EnemyCountLabel.text = "Quedan " +  enemiesRemaining.ToString() + " Enemigos";
 	}
 }

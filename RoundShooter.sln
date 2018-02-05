@@ -1,7 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{CD33461F-779B-832B-E08B-0D05CAC0FEA9}") = "RoundShooter", "Assembly-CSharp.csproj", "{C086C371-D725-3441-06C6-AE8CE989254B}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoundShooter", "Assembly-CSharp.csproj", "{C086C371-D725-3441-06C6-AE8CE989254B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
